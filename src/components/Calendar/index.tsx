@@ -8,7 +8,7 @@ const Calendar: React.FC = () => {
   const [date, setDate] = useState(new Date());
   const [dateMonth, setDateMonth] = useState(date.getMonth());
   const [dateYear, setDateYear] = useState(date.getFullYear());
-  const [calendarDays, setCalendarDays] = useState<number[]>([]);
+  const [calendarDays, setCalendarDays] = useState<number[][]>([]);
 
   useEffect(() => {
     const newCalendar = [];
@@ -29,7 +29,13 @@ const Calendar: React.FC = () => {
       j++;
     }
 
-    setCalendarDays(newCalendar);
+    const newCalendarFormatted = [];
+
+    for (let i = 0; i < 6; i++) {
+      newCalendarFormatted.push(newCalendar.slice(i * 7, (i + 1) * 7));
+    }
+
+    setCalendarDays(newCalendarFormatted);
   }, [dateMonth, dateYear]);
 
   return (
@@ -43,11 +49,13 @@ const Calendar: React.FC = () => {
         <th>F</th>
         <th>S</th>
       </tr>
-      <tr>
-        {calendarDays.map(day => (
-          <td>{day}</td>
-        ))}
-      </tr>
+      {calendarDays.map(row => (
+        <tr>
+          {row.map(day => (
+            <td>{day}</td>
+          ))}
+        </tr>
+      ))}
     </Container>
   );
 };
