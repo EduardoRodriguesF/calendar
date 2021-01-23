@@ -1,8 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import daysInMonth from '../../utils/daysInMonth';
+import firstWeekDayInMonth from '../../utils/firstWeekDayInMonth';
 
 import { Container } from './styles';
 
 const Calendar: React.FC = () => {
+  const [date, setDate] = useState(new Date());
+  const [dateMonth, setDateMonth] = useState(date.getMonth());
+  const [dateYear, setDateYear] = useState(date.getFullYear());
+  const [calendarDays, setCalendarDays] = useState<number[]>([]);
+
+  useEffect(() => {
+    const newCalendar = [];
+    const pastMonthDays = daysInMonth(dateMonth - 2, dateYear);
+    const firstWeekDay = firstWeekDayInMonth(dateMonth, dateYear);
+
+    for (let i = firstWeekDay - 1; i >= 0; i--) {
+      newCalendar.push(pastMonthDays - i);
+    }
+
+    for (let i = 1; i <= daysInMonth(dateMonth, dateYear); i++) {
+      newCalendar.push(i);
+    }
+
+    let j = 1;
+    for (let i = newCalendar.length; i < 42; i++) {
+      newCalendar.push(j);
+      j++;
+    }
+
+    setCalendarDays(newCalendar);
+  }, [dateMonth, dateYear]);
+
   return (
     <Container>
       <tr>
@@ -15,58 +44,9 @@ const Calendar: React.FC = () => {
         <th>S</th>
       </tr>
       <tr>
-        <td className="otherMonth">27</td>
-        <td className="otherMonth">28</td>
-        <td className="otherMonth">29</td>
-        <td className="otherMonth">30</td>
-        <td className="otherMonth">31</td>
-        <td>1</td>
-        <td>2</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>4</td>
-        <td>5</td>
-        <td>6</td>
-        <td>7</td>
-        <td>8</td>
-        <td>9</td>
-      </tr>
-      <tr>
-        <td>10</td>
-        <td>11</td>
-        <td>12</td>
-        <td>13</td>
-        <td>14</td>
-        <td>15</td>
-        <td>16</td>
-      </tr>
-      <tr>
-        <td>17</td>
-        <td>18</td>
-        <td>19</td>
-        <td>20</td>
-        <td>21</td>
-        <td>22</td>
-        <td>23</td>
-      </tr>
-      <tr>
-        <td>24</td>
-        <td>25</td>
-        <td>26</td>
-        <td>27</td>
-        <td>28</td>
-        <td>29</td>
-        <td>30</td>
-      </tr>
-      <tr>
-        <td>31</td>
-        <td className="otherMonth">1</td>
-        <td className="otherMonth">2</td>
-        <td className="otherMonth">3</td>
-        <td className="otherMonth">4</td>
-        <td className="otherMonth">5</td>
-        <td className="otherMonth">6</td>
+        {calendarDays.map(day => (
+          <td>{day}</td>
+        ))}
       </tr>
     </Container>
   );
