@@ -4,11 +4,16 @@ import firstWeekDayInMonth from '../../utils/firstWeekDayInMonth';
 
 import { Container } from './styles';
 
+interface ICalendarDays {
+  day: number;
+  other: boolean;
+}
+
 const Calendar: React.FC = () => {
   const [date, setDate] = useState(new Date());
   const [dateMonth, setDateMonth] = useState(date.getMonth());
   const [dateYear, setDateYear] = useState(date.getFullYear());
-  const [calendarDays, setCalendarDays] = useState<number[][]>([]);
+  const [calendarDays, setCalendarDays] = useState<ICalendarDays[][]>([]);
 
   useEffect(() => {
     const newCalendar = [];
@@ -16,17 +21,26 @@ const Calendar: React.FC = () => {
     const firstWeekDay = firstWeekDayInMonth(dateMonth, dateYear);
 
     for (let i = firstWeekDay - 1; i >= 0; i--) {
-      newCalendar.push(pastMonthDays - i);
+      newCalendar.push({
+        day: pastMonthDays - i,
+        other: true,
+      });
     }
 
-    for (let i = 1; i <= daysInMonth(dateMonth, dateYear); i++) {
-      newCalendar.push(i);
+    for (let day = 1; day <= daysInMonth(dateMonth, dateYear); day++) {
+      newCalendar.push({
+        day,
+        other: false,
+      });
     }
 
-    let j = 1;
+    let day = 1;
     for (let i = newCalendar.length; i < 42; i++) {
-      newCalendar.push(j);
-      j++;
+      newCalendar.push({
+        day,
+        other: true,
+      });
+      day++;
     }
 
     const newCalendarFormatted = [];
@@ -51,8 +65,8 @@ const Calendar: React.FC = () => {
       </tr>
       {calendarDays.map(row => (
         <tr>
-          {row.map(day => (
-            <td>{day}</td>
+          {row.map(d => (
+            <td className={d.other ? 'otherMonth' : ''}>{d.day}</td>
           ))}
         </tr>
       ))}
