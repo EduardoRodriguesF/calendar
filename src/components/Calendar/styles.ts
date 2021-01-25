@@ -1,6 +1,27 @@
 import styled from 'styled-components';
 
-export const Container = styled.table`
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > div {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      font-size: 24px;
+    }
+
+    svg {
+      cursor: pointer;
+    }
+  }
+`;
+
+export const Content = styled.table`
   tr {
     -webkit-user-select: none; /* for Safari */
     user-select: none;

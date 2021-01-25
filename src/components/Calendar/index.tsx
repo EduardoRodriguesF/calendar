@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+
 import daysInMonth from '../../utils/daysInMonth';
 import firstWeekDayInMonth from '../../utils/firstWeekDayInMonth';
 
-import { Container } from './styles';
+import { Container, Content } from './styles';
 
 interface ICalendarDays {
   day: number;
@@ -14,6 +16,21 @@ const Calendar: React.FC = () => {
   const [dateMonth, setDateMonth] = useState(date.getMonth());
   const [dateYear, setDateYear] = useState(date.getFullYear());
   const [calendarDays, setCalendarDays] = useState<ICalendarDays[][]>([]);
+
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
 
   const previousMonth = useCallback(() => {
     if (dateMonth === 0) {
@@ -75,19 +92,15 @@ const Calendar: React.FC = () => {
   }, [dateMonth, dateYear]);
 
   return (
-    <>
-      <h1>
-        {dateMonth}
-
-        {dateYear}
-      </h1>
-      <button type="button" onClick={nextMonth}>
-        next
-      </button>
-      <button type="button" onClick={previousMonth}>
-        back
-      </button>
-      <Container>
+    <Container>
+      <div>
+        <FiChevronLeft onClick={previousMonth} size={24} />
+        <h1>
+          {months[dateMonth]} {dateYear}
+        </h1>
+        <FiChevronRight onClick={nextMonth} size={24} />
+      </div>
+      <Content>
         <tr>
           <th>S</th>
           <th>M</th>
@@ -104,8 +117,8 @@ const Calendar: React.FC = () => {
             ))}
           </tr>
         ))}
-      </Container>
-    </>
+      </Content>
+    </Container>
   );
 };
 

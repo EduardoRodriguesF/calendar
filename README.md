@@ -3,6 +3,6 @@
 ## Milestones 
 
 - [x] Display month days in correct order
-- [ ] Change current month view
+- [x] Change current month view
 - [ ] Select specific date
 - [ ] Keep date selected when changing months and not misselect in another month
