@@ -40,6 +40,10 @@ export const Content = styled.table`
         color: #777;
       }
 
+      &.today {
+        background-color: #eaeaea;
+      }
+
       &.selected {
         background: #0070f3;
         color: #fff;

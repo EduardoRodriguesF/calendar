@@ -10,12 +10,14 @@ interface ICalendarDays {
   day: number;
   other?: boolean;
   selected?: boolean;
+  today?: boolean;
 }
 
 const Calendar: React.FC = () => {
-  const [date, setDate] = useState(new Date());
-  const [dateMonth, setDateMonth] = useState(date.getMonth());
-  const [dateYear, setDateYear] = useState(date.getFullYear());
+  const [todayDate, _] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [dateMonth, setDateMonth] = useState(selectedDate.getMonth());
+  const [dateYear, setDateYear] = useState(selectedDate.getFullYear());
   const [calendarDays, setCalendarDays] = useState<ICalendarDays[][]>([]);
 
   const months = [
@@ -72,14 +74,23 @@ const Calendar: React.FC = () => {
         day,
         other: false,
         selected: false,
+        today: false,
       });
 
       if (
-        dateMonth === date.getMonth() &&
-        dateYear === date.getFullYear() &&
-        day === date.getDate()
+        dateMonth === selectedDate.getMonth() &&
+        dateYear === selectedDate.getFullYear() &&
+        day === selectedDate.getDate()
       ) {
         newCalendar[newCalendar.length - 1].selected = true;
+      }
+
+      if (
+        todayDate.getDate() === day &&
+        todayDate.getMonth() === dateMonth &&
+        todayDate.getFullYear() === dateYear
+      ) {
+        newCalendar[newCalendar.length - 1].today = true;
       }
     }
 
@@ -99,7 +110,7 @@ const Calendar: React.FC = () => {
     }
 
     setCalendarDays(newCalendarFormatted);
-  }, [dateMonth, dateYear, date]);
+  }, [dateMonth, dateYear, selectedDate]);
 
   return (
     <Container>
@@ -124,10 +135,13 @@ const Calendar: React.FC = () => {
           <tr>
             {row.map(d => (
               <td
-                className={`${d.other ? 'otherMonth' : ''} ${
-                  d.selected ? 'selected' : ''
-                }`}
-                onClick={() => setDate(new Date(dateYear, dateMonth, d.day))}
+                className={`${d.other ? 'otherMonth' : ' '} ${
+                  d.selected ? 'selected' : ' '
+                }
+                  ${d.today ? 'today' : ' '}`}
+                onClick={() => {
+                  setSelectedDate(new Date(dateYear, dateMonth, d.day));
+                }}
               >
                 {d.day}
               </td>
