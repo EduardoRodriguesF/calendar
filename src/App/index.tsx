@@ -7,7 +7,6 @@ import { Container } from './styles';
 const App: React.FC = () => {
   return (
     <Container>
-      <h1>January 2020</h1>
       <Calendar />
     </Container>
   );

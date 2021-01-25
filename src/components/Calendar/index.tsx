@@ -15,9 +15,31 @@ const Calendar: React.FC = () => {
   const [dateYear, setDateYear] = useState(date.getFullYear());
   const [calendarDays, setCalendarDays] = useState<ICalendarDays[][]>([]);
 
+  const previousMonth = useCallback(() => {
+    if (dateMonth === 0) {
+      setDateMonth(11);
+      setDateYear(dateYear - 1);
+    } else setDateMonth(dateMonth - 1);
+  }, [dateMonth, dateYear]);
+
+  const nextMonth = useCallback(() => {
+    if (dateMonth === 11) {
+      setDateMonth(0);
+      setDateYear(dateYear + 1);
+    } else setDateMonth(dateMonth + 1);
+  }, [dateMonth, dateYear]);
+
   useEffect(() => {
     const newCalendar = [];
-    const pastMonthDays = daysInMonth(dateMonth - 2, dateYear);
+
+    let pastMonthDays;
+
+    if (dateMonth === 0) {
+      pastMonthDays = daysInMonth(12, dateYear - 1);
+    } else {
+      pastMonthDays = daysInMonth(dateMonth, dateYear);
+    }
+    const daysThisMonth = daysInMonth(dateMonth + 1, dateYear);
     const firstWeekDay = firstWeekDayInMonth(dateMonth, dateYear);
 
     for (let i = firstWeekDay - 1; i >= 0; i--) {
@@ -27,7 +49,7 @@ const Calendar: React.FC = () => {
       });
     }
 
-    for (let day = 1; day <= daysInMonth(dateMonth, dateYear); day++) {
+    for (let day = 1; day <= daysThisMonth; day++) {
       newCalendar.push({
         day,
         other: false,
@@ -53,24 +75,37 @@ const Calendar: React.FC = () => {
   }, [dateMonth, dateYear]);
 
   return (
-    <Container>
-      <tr>
-        <th>S</th>
-        <th>M</th>
-        <th>T</th>
-        <th>W</th>
-        <th>T</th>
-        <th>F</th>
-        <th>S</th>
-      </tr>
-      {calendarDays.map(row => (
+    <>
+      <h1>
+        {dateMonth}
+
+        {dateYear}
+      </h1>
+      <button type="button" onClick={nextMonth}>
+        next
+      </button>
+      <button type="button" onClick={previousMonth}>
+        back
+      </button>
+      <Container>
         <tr>
-          {row.map(d => (
-            <td className={d.other ? 'otherMonth' : ''}>{d.day}</td>
-          ))}
+          <th>S</th>
+          <th>M</th>
+          <th>T</th>
+          <th>W</th>
+          <th>T</th>
+          <th>F</th>
+          <th>S</th>
         </tr>
-      ))}
-    </Container>
+        {calendarDays.map(row => (
+          <tr>
+            {row.map(d => (
+              <td className={d.other ? 'otherMonth' : ''}>{d.day}</td>
+            ))}
+          </tr>
+        ))}
+      </Container>
+    </>
   );
 };
 
