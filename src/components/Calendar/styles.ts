@@ -13,6 +13,7 @@ export const Container = styled.div`
 
     h1 {
       font-size: 24px;
+      user-select: none;
     }
 
     svg {

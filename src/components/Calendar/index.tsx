@@ -74,7 +74,11 @@ const Calendar: React.FC = () => {
         selected: false,
       });
 
-      if (dateMonth === date.getMonth() && day === date.getDate()) {
+      if (
+        dateMonth === date.getMonth() &&
+        dateYear === date.getFullYear() &&
+        day === date.getDate()
+      ) {
         newCalendar[newCalendar.length - 1].selected = true;
       }
     }
