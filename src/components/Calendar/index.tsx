@@ -110,7 +110,7 @@ const Calendar: React.FC = () => {
     }
 
     setCalendarDays(newCalendarFormatted);
-  }, [dateMonth, dateYear, selectedDate]);
+  }, [dateMonth, dateYear, selectedDate, todayDate]);
 
   return (
     <Container>

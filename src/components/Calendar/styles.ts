@@ -39,20 +39,22 @@ export const Content = styled.table`
       &.otherMonth {
         color: #777;
       }
+    }
 
+    td {
       &.today {
         background-color: #eaeaea;
+      }
+
+      &:hover {
+        color: #fff;
+        background: #333;
       }
 
       &.selected {
         background: #0070f3;
         color: #fff;
       }
-    }
-
-    td:hover {
-      color: #fff;
-      background: #333;
     }
   }
 `;
