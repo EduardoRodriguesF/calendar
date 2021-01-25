@@ -38,6 +38,11 @@ export const Content = styled.table`
       &.otherMonth {
         color: #777;
       }
+
+      &.selected {
+        background: #0070f3;
+        color: #fff;
+      }
     }
 
     td:hover {

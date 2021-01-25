@@ -8,7 +8,8 @@ import { Container, Content } from './styles';
 
 interface ICalendarDays {
   day: number;
-  other: boolean;
+  other?: boolean;
+  selected?: boolean;
 }
 
 const Calendar: React.FC = () => {
@@ -70,7 +71,12 @@ const Calendar: React.FC = () => {
       newCalendar.push({
         day,
         other: false,
+        selected: false,
       });
+
+      if (dateMonth === date.getMonth() && day === date.getDate()) {
+        newCalendar[newCalendar.length - 1].selected = true;
+      }
     }
 
     let day = 1;
@@ -89,7 +95,7 @@ const Calendar: React.FC = () => {
     }
 
     setCalendarDays(newCalendarFormatted);
-  }, [dateMonth, dateYear]);
+  }, [dateMonth, dateYear, date]);
 
   return (
     <Container>
@@ -113,7 +119,14 @@ const Calendar: React.FC = () => {
         {calendarDays.map(row => (
           <tr>
             {row.map(d => (
-              <td className={d.other ? 'otherMonth' : ''}>{d.day}</td>
+              <td
+                className={`${d.other ? 'otherMonth' : ''} ${
+                  d.selected ? 'selected' : ''
+                }`}
+                onClick={() => setDate(new Date(dateYear, dateMonth, d.day))}
+              >
+                {d.day}
+              </td>
             ))}
           </tr>
         ))}
