@@ -49,6 +49,14 @@ const Calendar: React.FC = () => {
     } else setDateMonth(dateMonth + 1);
   }, [dateMonth, dateYear]);
 
+  const selectDate = useCallback(
+    (e, day) => {
+      if (!e.classList.contains('otherMonth'))
+        setSelectedDate(new Date(dateYear, dateMonth, day));
+    },
+    [dateMonth, dateYear],
+  );
+
   useEffect(() => {
     const newCalendar = [];
 
@@ -135,12 +143,12 @@ const Calendar: React.FC = () => {
           <tr>
             {row.map(d => (
               <td
-                className={`${d.other ? 'otherMonth' : ' '} ${
-                  d.selected ? 'selected' : ' '
+                className={`${d.other ? 'otherMonth' : ''} ${
+                  d.selected ? 'selected' : ''
                 }
-                  ${d.today ? 'today' : ' '}`}
-                onClick={() => {
-                  setSelectedDate(new Date(dateYear, dateMonth, d.day));
+                  ${d.today ? 'today' : ''}`}
+                onClick={e => {
+                  selectDate(e.target, d.day);
                 }}
               >
                 {d.day}
