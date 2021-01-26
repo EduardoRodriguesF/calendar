@@ -30,8 +30,30 @@ For now, it just shows you dates by month and allows you to select a date and hi
 ## Usage
 
 1. Clone the repository in your desired folder either by clicking on <code>Code</code> above and downloading ZIP file or by command:
-  ```bash
-  $ git clone https://github.com/EduardoRodriguesF/calendar.git
-  ```
+```bash
+$ git clone https://github.com/EduardoRodriguesF/calendar.git
+```
 
-2. 
+2. Go into the folder:
+```bash
+$ cd calendar
+```
+
+3. Install dependencies:
+```bash
+$ yarn
+# or
+$ npm install
+```
+
+4. Execute <code>start</code> command:
+```bash
+$ yarn start
+# or
+$ npm start
+```
+
+5. Open <a href="http://localhost:3000">localhost</a> at port 3000
+
+## License
+THis project is under <a href="https://github.com/EduardoRodriguesF/calendar/blob/main/LICENSE">MIT license</a>.
