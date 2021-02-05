@@ -48,11 +48,11 @@ export const Content = styled.table`
 
       &:hover {
         color: #fff;
-        background: #333;
+        background-color: #333;
       }
 
       &.selected {
-        background: #0070f3;
+        background-color: #0070f3;
         color: #fff;
       }
     }

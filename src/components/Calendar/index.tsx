@@ -6,6 +6,10 @@ import firstWeekDayInMonth from '../../utils/firstWeekDayInMonth';
 
 import { Container, Content } from './styles';
 
+interface ICalendarProps {
+  date?: Date;
+}
+
 interface ICalendarDays {
   day: number;
   other?: boolean;
@@ -13,8 +17,10 @@ interface ICalendarDays {
   today?: boolean;
 }
 
-const Calendar: React.FC = () => {
-  const [todayDate, _] = useState(new Date());
+const Calendar: React.FC<ICalendarProps> = ({
+  date = new Date(),
+}: ICalendarProps) => {
+  const [todayDate, _] = useState(date);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [dateMonth, setDateMonth] = useState(selectedDate.getMonth());
   const [dateYear, setDateYear] = useState(selectedDate.getFullYear());
@@ -123,11 +129,19 @@ const Calendar: React.FC = () => {
   return (
     <Container>
       <div>
-        <FiChevronLeft onClick={previousMonth} size={24} />
-        <h1>
+        <FiChevronLeft
+          onClick={previousMonth}
+          size={24}
+          data-testid="previous_month"
+        />
+        <h1 data-testid="date_display">
           {months[dateMonth]} {dateYear}
         </h1>
-        <FiChevronRight onClick={nextMonth} size={24} />
+        <FiChevronRight
+          onClick={nextMonth}
+          size={24}
+          data-testid="next_month"
+        />
       </div>
       <Content>
         <tr>
@@ -143,6 +157,7 @@ const Calendar: React.FC = () => {
           <tr>
             {row.map(d => (
               <td
+                data-testid={d.day}
                 className={`${d.other ? 'otherMonth' : ''} ${
                   d.selected ? 'selected' : ''
                 }
