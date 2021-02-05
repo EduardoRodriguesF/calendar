@@ -67,6 +67,21 @@ describe('Calendar component', () => {
     }
   });
 
+  it('should be able to go to next year', () => {
+    const { getByTestId } = render(<Calendar date={getNow()} />);
+
+    for (let i = 0; i < 11; i++) {
+      fireEvent.click(getByTestId('next_month'));
+      sleep(50);
+    }
+
+    expect(getByTestId('date_display')).toHaveTextContent('January 2022');
+
+    function sleep(ms: number) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+  });
+
   it('should not highlight the selected date in past year', () => {
     const { getByTestId } = render(<Calendar date={getNow()} />);
 
