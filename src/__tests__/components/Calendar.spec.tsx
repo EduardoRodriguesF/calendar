@@ -19,6 +19,12 @@ describe('Calendar component', () => {
     expect(getByTestId('16')).toBeTruthy();
   });
 
+  it('should be able to render calendar without date argument', () => {
+    const { getByTestId } = render(<Calendar />);
+
+    expect(getByTestId('26')).toBeTruthy();
+  });
+
   it("should highlight today's date", () => {
     const { getByTestId } = render(<Calendar date={getNow()} />);
 
