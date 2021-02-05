@@ -28,13 +28,13 @@ describe('Calendar component', () => {
   it("should highlight today's date", () => {
     const { getByTestId } = render(<Calendar date={getNow()} />);
 
-    fireEvent.click(getByTestId('26'));
+    expect(getByTestId('14')).toHaveClass('today');
   });
 
   it("should always have small highlight on today's date", () => {
     const { getByTestId } = render(<Calendar date={getNow()} />);
 
-    expect(getByTestId('14')).toHaveClass('today');
+    fireEvent.click(getByTestId('26'));
 
     expect(getByTestId('14')).toHaveStyle('background-color: #eaeaea');
   });
