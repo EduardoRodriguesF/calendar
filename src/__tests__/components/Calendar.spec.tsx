@@ -56,11 +56,31 @@ describe('Calendar component', () => {
     const { getByTestId } = render(<Calendar date={getNow()} />);
 
     fireEvent.click(getByTestId('previous_month'));
-    sleep(200);
+    sleep(50);
     fireEvent.click(getByTestId('previous_month'));
 
     expect(getByTestId('date_display')).toHaveTextContent('December 2020');
     expect(getByTestId('31')).not.toHaveClass('otherMonth');
+
+    function sleep(ms: number) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+  });
+
+  it('should not highlight the selected date in past year', () => {
+    const { getByTestId } = render(<Calendar date={getNow()} />);
+
+    fireEvent.click(getByTestId('15'));
+
+    expect(getByTestId('15')).toHaveClass('selected');
+
+    for (let i = 0; i < 12; i++) {
+      fireEvent.click(getByTestId('previous_month'));
+      sleep(50);
+    }
+
+    expect(getByTestId('date_display')).toHaveTextContent('February 2020');
+    expect(getByTestId('15')).not.toHaveClass('selected');
 
     function sleep(ms: number) {
       return new Promise(resolve => setTimeout(resolve, ms));
