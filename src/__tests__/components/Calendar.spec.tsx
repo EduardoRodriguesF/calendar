@@ -28,11 +28,17 @@ describe('Calendar component', () => {
   it('should highlight date when clicking', () => {
     const { getByTestId } = render(<Calendar date={getNow()} />);
 
-    const target = getByTestId('26');
+    fireEvent.click(getByTestId('26'));
 
-    fireEvent.click(target);
+    expect(getByTestId('26')).toHaveClass('selected');
+  });
 
-    expect(target).toHaveClass('selected');
+  it('should not highlight date from another month', () => {
+    const { getByTestId } = render(<Calendar date={getNow()} />);
+
+    fireEvent.click(getByTestId('31'));
+
+    expect(getByTestId('31')).not.toHaveClass('selected');
   });
 
   it('should be able to change to next month', () => {
