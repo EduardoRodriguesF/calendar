@@ -8,7 +8,10 @@ import firstWeekDayInMonth from '../../utils/firstWeekDayInMonth';
 import { Container, Content } from './styles';
 import { IState } from '../../store';
 import { IDateState } from '../../store/modules/date/types';
-import { updateSelectedDate } from '../../store/modules/date/action';
+import {
+  mockTodayDate,
+  updateSelectedDate,
+} from '../../store/modules/date/action';
 
 interface ICalendarProps {
   initialDate?: Date;
@@ -25,10 +28,8 @@ const Calendar: React.FC<ICalendarProps> = ({
   initialDate = new Date(),
 }: ICalendarProps) => {
   const date = useSelector<IState, IDateState>(state => state.date);
-  // const [todayDate, _] = useState(date);
-  // const [selectedDate, setSelectedDate] = useState(new Date());
-  const [dateMonth, setDateMonth] = useState(date.selectedDate.getMonth());
-  const [dateYear, setDateYear] = useState(date.selectedDate.getFullYear());
+  const [dateMonth, setDateMonth] = useState(date.todayDate.getMonth());
+  const [dateYear, setDateYear] = useState(date.todayDate.getFullYear());
   const [calendarDays, setCalendarDays] = useState<ICalendarDays[][]>([]);
 
   const dispatch = useDispatch();
@@ -71,6 +72,11 @@ const Calendar: React.FC<ICalendarProps> = ({
   );
 
   useEffect(() => {
+    if (initialDate) {
+      dispatch(mockTodayDate(initialDate));
+      setDateMonth(date.todayDate.getMonth());
+      setDateYear(date.todayDate.getFullYear());
+    }
     const newCalendar = [];
 
     let pastMonthDays;
@@ -131,7 +137,7 @@ const Calendar: React.FC<ICalendarProps> = ({
     }
 
     setCalendarDays(newCalendarFormatted);
-  }, [date, dateMonth, dateYear, selectDate]);
+  }, [date, dateMonth, dateYear, dispatch, initialDate, selectDate]);
 
   return (
     <Container>

@@ -18,6 +18,14 @@ const date: Reducer<IDateState> = (state = INITIAL_STATE, action) => {
         selectedDate,
       };
     }
+    case 'MOCK_TODAY_DATE': {
+      const { todayDate } = action.payload;
+
+      return {
+        ...state,
+        todayDate,
+      };
+    }
     default: {
       return state;
     }

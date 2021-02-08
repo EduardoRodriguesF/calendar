@@ -6,3 +6,12 @@ export function updateSelectedDate(selectedDate: Date) {
     },
   };
 }
+
+export function mockTodayDate(todayDate: Date) {
+  return {
+    type: 'MOCK_TODAY_DATE',
+    payload: {
+      todayDate,
+    },
+  };
+}

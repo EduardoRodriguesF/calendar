@@ -12,7 +12,7 @@ describe('Calendar component', () => {
   });
 
   it('should be able to render current month (February)', () => {
-    const { getByTestId } = render(<Calendar date={getNow()} />);
+    const { getByTestId } = render(<Calendar initialDate={getNow()} />);
 
     expect(getByTestId('date_display')).toHaveTextContent('February 2021');
     expect(getByTestId('31')).toHaveClass('otherMonth');
@@ -26,13 +26,13 @@ describe('Calendar component', () => {
   });
 
   it("should highlight today's date", () => {
-    const { getByTestId } = render(<Calendar date={getNow()} />);
+    const { getByTestId } = render(<Calendar initialDate={getNow()} />);
 
     expect(getByTestId('14')).toHaveClass('today');
   });
 
   it("should always have small highlight on today's date", () => {
-    const { getByTestId } = render(<Calendar date={getNow()} />);
+    const { getByTestId } = render(<Calendar initialDate={getNow()} />);
 
     fireEvent.click(getByTestId('26'));
 
@@ -40,7 +40,7 @@ describe('Calendar component', () => {
   });
 
   it('should highlight date when clicking', () => {
-    const { getByTestId } = render(<Calendar date={getNow()} />);
+    const { getByTestId } = render(<Calendar initialDate={getNow()} />);
 
     fireEvent.click(getByTestId('26'));
 
@@ -48,7 +48,7 @@ describe('Calendar component', () => {
   });
 
   it('should not highlight date from another month', () => {
-    const { getByTestId } = render(<Calendar date={getNow()} />);
+    const { getByTestId } = render(<Calendar initialDate={getNow()} />);
 
     fireEvent.click(getByTestId('31'));
 
@@ -56,7 +56,7 @@ describe('Calendar component', () => {
   });
 
   it('should be able to change to next month', () => {
-    const { getByTestId } = render(<Calendar date={getNow()} />);
+    const { getByTestId } = render(<Calendar initialDate={getNow()} />);
 
     fireEvent.click(getByTestId('next_month'));
 
@@ -65,7 +65,7 @@ describe('Calendar component', () => {
   });
 
   it('should be able to change to previous month', () => {
-    const { getByTestId } = render(<Calendar date={getNow()} />);
+    const { getByTestId } = render(<Calendar initialDate={getNow()} />);
 
     fireEvent.click(getByTestId('previous_month'));
 
@@ -73,7 +73,7 @@ describe('Calendar component', () => {
   });
 
   it('should be able to go to previous year', () => {
-    const { getByTestId } = render(<Calendar date={getNow()} />);
+    const { getByTestId } = render(<Calendar initialDate={getNow()} />);
 
     fireEvent.click(getByTestId('previous_month'));
     sleep(50);
@@ -88,7 +88,7 @@ describe('Calendar component', () => {
   });
 
   it('should be able to go to next year', () => {
-    const { getByTestId } = render(<Calendar date={getNow()} />);
+    const { getByTestId } = render(<Calendar initialDate={getNow()} />);
 
     for (let i = 0; i < 11; i++) {
       fireEvent.click(getByTestId('next_month'));
@@ -103,7 +103,7 @@ describe('Calendar component', () => {
   });
 
   it('should not highlight the selected date in past year', () => {
-    const { getByTestId } = render(<Calendar date={getNow()} />);
+    const { getByTestId } = render(<Calendar initialDate={getNow()} />);
 
     fireEvent.click(getByTestId('15'));
 
