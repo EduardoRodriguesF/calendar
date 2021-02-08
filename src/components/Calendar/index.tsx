@@ -10,7 +10,9 @@ import { IState } from '../../store';
 import { IDateState } from '../../store/modules/date/types';
 import {
   mockTodayDate,
+  updateMonth,
   updateSelectedDate,
+  updateYear,
 } from '../../store/modules/date/action';
 
 interface ICalendarProps {
@@ -28,8 +30,8 @@ const Calendar: React.FC<ICalendarProps> = ({
   initialDate = new Date(),
 }: ICalendarProps) => {
   const date = useSelector<IState, IDateState>(state => state.date);
-  const [dateMonth, setDateMonth] = useState(date.today.getMonth());
-  const [dateYear, setDateYear] = useState(date.today.getFullYear());
+  // const [dateMonth, setDateMonth] = useState(date.today.getMonth());
+  // const [dateYear, setDateYear] = useState(date.today.getFullYear());
   const [calendarDays, setCalendarDays] = useState<ICalendarDays[][]>([]);
 
   const dispatch = useDispatch();
@@ -50,44 +52,44 @@ const Calendar: React.FC<ICalendarProps> = ({
   ];
 
   const previousMonth = useCallback(() => {
-    if (dateMonth === 0) {
-      setDateMonth(11);
-      setDateYear(dateYear - 1);
-    } else setDateMonth(dateMonth - 1);
-  }, [dateMonth, dateYear]);
+    if (date.month === 0) {
+      dispatch(updateMonth(11));
+      dispatch(updateYear(date.year - 1));
+    } else dispatch(updateMonth(date.month - 1));
+  }, [date, dispatch]);
 
   const nextMonth = useCallback(() => {
-    if (dateMonth === 11) {
-      setDateMonth(0);
-      setDateYear(dateYear + 1);
-    } else setDateMonth(dateMonth + 1);
-  }, [dateMonth, dateYear]);
+    if (date.month === 11) {
+      dispatch(updateMonth(0));
+      dispatch(updateYear(date.year + 1));
+    } else dispatch(updateMonth(date.month + 1));
+  }, [date, dispatch]);
 
   const selectDate = useCallback(
     (e, day) => {
       if (!e.classList.contains('otherMonth'))
-        dispatch(updateSelectedDate(new Date(dateYear, dateMonth, day)));
+        dispatch(updateSelectedDate(new Date(date.year, date.month, day)));
     },
-    [dateMonth, dateYear, dispatch],
+    [date, dispatch],
   );
 
   useEffect(() => {
     if (initialDate) {
       dispatch(mockTodayDate(initialDate));
-      setDateMonth(date.today.getMonth());
-      setDateYear(date.today.getFullYear());
+      dispatch(updateMonth(date.today.getMonth()));
+      dispatch(updateYear(date.today.getFullYear()));
     }
     const newCalendar = [];
 
     let pastMonthDays;
 
-    if (dateMonth === 0) {
-      pastMonthDays = daysInMonth(12, dateYear - 1);
+    if (date.month === 0) {
+      pastMonthDays = daysInMonth(12, date.year - 1);
     } else {
-      pastMonthDays = daysInMonth(dateMonth, dateYear);
+      pastMonthDays = daysInMonth(date.month, date.year);
     }
-    const daysThisMonth = daysInMonth(dateMonth + 1, dateYear);
-    const firstWeekDay = firstWeekDayInMonth(dateMonth, dateYear);
+    const daysThisMonth = daysInMonth(date.month + 1, date.year);
+    const firstWeekDay = firstWeekDayInMonth(date.month, date.year);
 
     for (let i = firstWeekDay - 1; i >= 0; i--) {
       newCalendar.push({
@@ -105,8 +107,8 @@ const Calendar: React.FC<ICalendarProps> = ({
       });
 
       if (
-        dateMonth === date.selected.getMonth() &&
-        dateYear === date.selected.getFullYear() &&
+        date.month === date.selected.getMonth() &&
+        date.year === date.selected.getFullYear() &&
         day === date.selected.getDate()
       ) {
         newCalendar[newCalendar.length - 1].selected = true;
@@ -114,8 +116,8 @@ const Calendar: React.FC<ICalendarProps> = ({
 
       if (
         date.today.getDate() === day &&
-        date.today.getMonth() === dateMonth &&
-        date.today.getFullYear() === dateYear
+        date.today.getMonth() === date.month &&
+        date.today.getFullYear() === date.year
       ) {
         newCalendar[newCalendar.length - 1].today = true;
       }
@@ -137,7 +139,7 @@ const Calendar: React.FC<ICalendarProps> = ({
     }
 
     setCalendarDays(newCalendarFormatted);
-  }, [date, dateMonth, dateYear, dispatch, initialDate, selectDate]);
+  }, [date, dispatch, initialDate, selectDate]);
 
   return (
     <Container>
@@ -148,7 +150,7 @@ const Calendar: React.FC<ICalendarProps> = ({
           data-testid="previous_month"
         />
         <h1 data-testid="date_display">
-          {months[dateMonth]} {dateYear}
+          {months[date.month]} {date.year}
         </h1>
         <FiChevronRight
           onClick={nextMonth}

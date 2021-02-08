@@ -15,3 +15,21 @@ export function mockTodayDate(today: Date) {
     },
   };
 }
+
+export function updateMonth(month: number) {
+  return {
+    type: 'UPDATE_MONTH',
+    payload: {
+      month,
+    },
+  };
+}
+
+export function updateYear(year: number) {
+  return {
+    type: 'UPDATE_YEAR',
+    payload: {
+      year,
+    },
+  };
+}

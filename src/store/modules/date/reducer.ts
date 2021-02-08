@@ -26,6 +26,22 @@ const date: Reducer<IDateState> = (state = INITIAL_STATE, action) => {
         today,
       };
     }
+    case 'UPDATE_MONTH': {
+      const { month } = action.payload;
+
+      return {
+        ...state,
+        month,
+      };
+    }
+    case 'UPDATE_YEAR': {
+      const { year } = action.payload;
+
+      return {
+        ...state,
+        year,
+      };
+    }
     default: {
       return state;
     }
