@@ -31,8 +31,6 @@ const Calendar: React.FC<ICalendarProps> = ({
   initialDate = new Date(),
 }: ICalendarProps) => {
   const date = useSelector<IState, IDateState>(state => state.date);
-  // const [dateMonth, setDateMonth] = useState(date.today.getMonth());
-  // const [dateYear, setDateYear] = useState(date.today.getFullYear());
   const [calendarDays, setCalendarDays] = useState<ICalendarDays[][]>([]);
 
   const dispatch = useDispatch();
@@ -57,21 +55,21 @@ const Calendar: React.FC<ICalendarProps> = ({
       dispatch(updateMonth(11));
       dispatch(updateYear(date.year - 1));
     } else dispatch(updateMonth(date.month - 1));
-  }, [date, dispatch]);
+  }, [date.month, date.year, dispatch]);
 
   const nextMonth = useCallback(() => {
     if (date.month === 11) {
       dispatch(updateMonth(0));
       dispatch(updateYear(date.year + 1));
     } else dispatch(updateMonth(date.month + 1));
-  }, [date, dispatch]);
+  }, [date.month, date.year, dispatch]);
 
   const selectDate = useCallback(
     (e, day) => {
       if (!e.classList.contains('otherMonth'))
         dispatch(updateSelectedDate(new Date(date.year, date.month, day)));
     },
-    [date, dispatch],
+    [date.year, date.month, dispatch],
   );
 
   useEffect(() => {
@@ -80,9 +78,11 @@ const Calendar: React.FC<ICalendarProps> = ({
       dispatch(updateMonth(date.today.getMonth()));
       dispatch(updateYear(date.today.getFullYear()));
     }
+  }, [dispatch]);
 
+  useEffect(() => {
     setCalendarDays(generateCalendar(date));
-  }, [date, dispatch, initialDate, selectDate]);
+  }, [date, date.today, dispatch]);
 
   return (
     <Container>
