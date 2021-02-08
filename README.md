@@ -23,9 +23,11 @@ For now, it just shows you dates by month and allows you to select a date and hi
 
 - TypeScript
 - ReactJS
+- Redux
 - Styled Components
 - React Icons
 - ESLint, Prettier
+- Jest
 
 ## Usage
 
