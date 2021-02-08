@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 import daysInMonth from '../../utils/daysInMonth';
 import firstWeekDayInMonth from '../../utils/firstWeekDayInMonth';
 
 import { Container, Content } from './styles';
+import { IState } from '../../store';
+import { IDateState } from '../../store/modules/date/types';
+import { updateSelectedDate } from '../../store/modules/date/action';
 
 interface ICalendarProps {
-  date?: Date;
+  initialDate?: Date;
 }
 
 interface ICalendarDays {
@@ -18,13 +22,16 @@ interface ICalendarDays {
 }
 
 const Calendar: React.FC<ICalendarProps> = ({
-  date = new Date(),
+  initialDate = new Date(),
 }: ICalendarProps) => {
-  const [todayDate, _] = useState(date);
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [dateMonth, setDateMonth] = useState(selectedDate.getMonth());
-  const [dateYear, setDateYear] = useState(selectedDate.getFullYear());
+  const date = useSelector<IState, IDateState>(state => state.date);
+  // const [todayDate, _] = useState(date);
+  // const [selectedDate, setSelectedDate] = useState(new Date());
+  const [dateMonth, setDateMonth] = useState(date.selectedDate.getMonth());
+  const [dateYear, setDateYear] = useState(date.selectedDate.getFullYear());
   const [calendarDays, setCalendarDays] = useState<ICalendarDays[][]>([]);
+
+  const dispatch = useDispatch();
 
   const months = [
     'January',
@@ -58,9 +65,9 @@ const Calendar: React.FC<ICalendarProps> = ({
   const selectDate = useCallback(
     (e, day) => {
       if (!e.classList.contains('otherMonth'))
-        setSelectedDate(new Date(dateYear, dateMonth, day));
+        dispatch(updateSelectedDate(new Date(dateYear, dateMonth, day)));
     },
-    [dateMonth, dateYear],
+    [dateMonth, dateYear, dispatch],
   );
 
   useEffect(() => {
@@ -92,17 +99,17 @@ const Calendar: React.FC<ICalendarProps> = ({
       });
 
       if (
-        dateMonth === selectedDate.getMonth() &&
-        dateYear === selectedDate.getFullYear() &&
-        day === selectedDate.getDate()
+        dateMonth === date.selectedDate.getMonth() &&
+        dateYear === date.selectedDate.getFullYear() &&
+        day === date.selectedDate.getDate()
       ) {
         newCalendar[newCalendar.length - 1].selected = true;
       }
 
       if (
-        todayDate.getDate() === day &&
-        todayDate.getMonth() === dateMonth &&
-        todayDate.getFullYear() === dateYear
+        date.todayDate.getDate() === day &&
+        date.todayDate.getMonth() === dateMonth &&
+        date.todayDate.getFullYear() === dateYear
       ) {
         newCalendar[newCalendar.length - 1].today = true;
       }
@@ -124,7 +131,7 @@ const Calendar: React.FC<ICalendarProps> = ({
     }
 
     setCalendarDays(newCalendarFormatted);
-  }, [dateMonth, dateYear, selectedDate, todayDate]);
+  }, [date, dateMonth, dateYear, selectDate]);
 
   return (
     <Container>
