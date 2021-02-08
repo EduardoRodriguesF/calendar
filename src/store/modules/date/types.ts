@@ -1,6 +1,6 @@
 export interface IDateState {
-  todayDate: Date;
-  selectedDate: Date;
-  dateMonth: number;
-  dateYear: number;
+  today: Date;
+  selected: Date;
+  month: number;
+  year: number;
 }
