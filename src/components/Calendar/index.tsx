@@ -2,9 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-import daysInMonth from '../../utils/daysInMonth';
-import firstWeekDayInMonth from '../../utils/firstWeekDayInMonth';
-
 import { Container, Content } from './styles';
 import { IState } from '../../store';
 import { IDateState } from '../../store/modules/date/types';
@@ -78,6 +75,7 @@ const Calendar: React.FC<ICalendarProps> = ({
       dispatch(updateMonth(date.today.getMonth()));
       dispatch(updateYear(date.today.getFullYear()));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   useEffect(() => {
