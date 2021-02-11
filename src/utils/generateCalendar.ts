@@ -14,11 +14,11 @@ function generateCalendar(date: IDate) {
   let pastMonthDays;
 
   if (date.month === 0) {
-    pastMonthDays = daysInMonth(12, date.year - 1);
+    pastMonthDays = daysInMonth(11, date.year - 1);
   } else {
-    pastMonthDays = daysInMonth(date.month, date.year);
+    pastMonthDays = daysInMonth(date.month - 1, date.year);
   }
-  const daysThisMonth = daysInMonth(date.month + 1, date.year);
+  const daysThisMonth = daysInMonth(date.month, date.year);
   const firstWeekDay = firstWeekDayInMonth(date.month, date.year);
 
   for (let i = firstWeekDay - 1; i >= 0; i--) {
