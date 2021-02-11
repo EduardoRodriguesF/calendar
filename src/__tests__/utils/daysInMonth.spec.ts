@@ -1,7 +1,7 @@
 import daysInMonth from '../../utils/daysInMonth';
 
 describe('daysInMonth function', () => {
-  it('should return all months correct number of days for 2021', () => {
+  it('should return correct number of days in given months', () => {
     expect(daysInMonth(1, 2021)).toBe(31);
     expect(daysInMonth(2, 2021)).toBe(28);
     expect(daysInMonth(11, 2021)).toBe(30);
