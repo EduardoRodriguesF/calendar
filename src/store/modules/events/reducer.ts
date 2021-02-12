@@ -10,7 +10,9 @@ const events: Reducer<IEventsState> = (state = INITIAL_STATE, action) => {
     case 'CREATE_EVENT': {
       const { data } = action.payload;
 
-      return { ...state, data };
+      return {
+        events: [...state.events, data],
+      };
     }
     default: {
       return state;

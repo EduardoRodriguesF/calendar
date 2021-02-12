@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { FiX } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '../../store';
+import { createEvent } from '../../store/modules/events/action';
 import { toggleModal } from '../../store/modules/modal/action';
 
 import { Container, Content, ModalHeader } from './styles';
