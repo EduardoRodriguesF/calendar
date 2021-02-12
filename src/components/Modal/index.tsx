@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import { FiX } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '../../store';
-import { createEvent } from '../../store/modules/events/action';
 import { toggleModal } from '../../store/modules/modal/action';
+import Input from '../Input';
 
 import { Container, Content, ModalHeader } from './styles';
 
@@ -23,6 +23,9 @@ const Modal: React.FC = () => {
           <h2>New event</h2>
           <FiX onClick={handleModalClose} size={24} />
         </ModalHeader>
+        <form>
+          <Input placeholder="Title" />
+        </form>
       </Content>
     </Container>
   );
