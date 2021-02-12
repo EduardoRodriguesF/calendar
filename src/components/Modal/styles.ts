@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  display: flex;
+interface IContainerProps {
+  open: boolean;
+}
+
+export const Container = styled.div<IContainerProps>`
+  display: ${({ open }) => (open ? 'flex' : 'none')};
   align-items: center;
   justify-content: center;
   position: absolute;

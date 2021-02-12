@@ -4,6 +4,7 @@ import { IDateState } from './modules/date/types';
 
 export interface IState {
   date: IDateState;
+  modal: boolean;
 }
 
 const store = createStore(rootReducer);
