@@ -8,6 +8,7 @@ import { Container } from './styles';
 
 import store from '../store';
 import Modal from '../components/Modal';
+import Events from '../components/Events';
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
       <Modal />
       <Container>
         <Calendar />
+        <Events />
         <Footer />
       </Container>
     </Provider>

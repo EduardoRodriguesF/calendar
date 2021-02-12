@@ -37,8 +37,6 @@ const Modal: React.FC = () => {
         description: formData.description,
       }),
     );
-
-    console.log(formData);
   }, [date.selected, dispatch, formData]);
 
   return (
