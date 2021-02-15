@@ -13,6 +13,7 @@ import {
 } from '../../store/modules/date/action';
 import generateCalendar from '../../utils/generateCalendar';
 import { toggleModal } from '../../store/modules/modal/action';
+import Button from '../Button';
 
 interface ICalendarProps {
   initialDate?: Date;
@@ -133,9 +134,7 @@ const Calendar: React.FC<ICalendarProps> = ({
           </tr>
         ))}
       </Content>
-      <button type="button" onClick={handleModalOpen}>
-        Create event
-      </button>
+      <Button onClick={handleModalOpen}>Create event</Button>
     </Container>
   );
 };

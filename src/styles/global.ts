@@ -6,6 +6,10 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-family: 'Roboto', arial, helvetica, sans-serif;
   }
+  
+  button {
+    cursor: pointer;
+  }
 `;
 
 export default GlobalStyle;

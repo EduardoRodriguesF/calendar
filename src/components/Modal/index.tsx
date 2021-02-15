@@ -5,6 +5,7 @@ import { IState } from '../../store';
 import { IDateState } from '../../store/modules/date/types';
 import { createEvent } from '../../store/modules/events/action';
 import { toggleModal } from '../../store/modules/modal/action';
+import Button from '../Button';
 import Input from '../Input';
 
 import { Container, Content, ModalHeader } from './styles';
@@ -62,9 +63,7 @@ const Modal: React.FC = () => {
             }
           />
 
-          <button type="button" onClick={handleSubmit}>
-            Confirm
-          </button>
+          <Button onClick={handleSubmit}>Confirm</Button>
         </form>
       </Content>
     </Container>
