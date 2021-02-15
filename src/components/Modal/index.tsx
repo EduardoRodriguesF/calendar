@@ -43,6 +43,7 @@ const Modal: React.FC = () => {
     <Container open={modal}>
       <Content>
         <ModalHeader>
+          <span />
           <h2>New event</h2>
           <FiX onClick={handleModalClose} size={24} />
         </ModalHeader>

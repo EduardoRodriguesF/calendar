@@ -17,8 +17,45 @@ export const Container = styled.div<IContainerProps>`
 
 export const Content = styled.div`
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+
+  span {
+    text-align: center;
+    margin-bottom: 14px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    input + input {
+      margin-top: 8px;
+    }
+
+    button {
+      margin-top: 12px;
+    }
+  }
 `;
 
 export const ModalHeader = styled.header`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  span {
+    width: 24px;
+    height: 24px;
+  }
+
+  h2 {
+    line-height: 0;
+  }
+
+  svg {
+    margin-top: -24px;
+    cursor: pointer;
+  }
 `;
