@@ -30,8 +30,21 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
 
-    input + input {
-      margin-top: 8px;
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1 1 50%;
+      margin: 8px 0;
+
+      span {
+        margin: 0 12px 0 0;
+      }
+
+      input {
+        max-width: 100px;
+        text-align: center;
+      }
     }
 
     button {
@@ -51,7 +64,7 @@ export const ModalHeader = styled.header`
   }
 
   h2 {
-    line-height: 0;
+    margin: 0;
   }
 
   svg {
