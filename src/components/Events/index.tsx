@@ -24,8 +24,8 @@ const Events: React.FC = () => {
       {selectedDateEvents.map(e => (
         <Event>
           <h3>{e.title}</h3>
+          <span>{e.time}</span>
           <p>{e.description}</p>
-          <span>{e.date.getDate()}</span>
         </Event>
       ))}
     </Container>

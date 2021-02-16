@@ -57,6 +57,8 @@ const Modal: React.FC = () => {
         description: formData.description,
       }),
     );
+
+    handleModalClose();
   }, [date.selected, dispatch, formData]);
 
   return (
