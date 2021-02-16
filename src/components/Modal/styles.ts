@@ -42,7 +42,7 @@ export const Content = styled.div`
       }
 
       input {
-        max-width: 100px;
+        max-width: 36px;
         text-align: center;
       }
     }

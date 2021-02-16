@@ -13,14 +13,16 @@ import { Container, Content, ModalHeader } from './styles';
 interface IForm {
   title: string;
   description: string;
-  time: string;
+  timeHour: string;
+  timeMinute: string;
 }
 
 const Modal: React.FC = () => {
   const [formData, setFormData] = useState<IForm>({
     title: '',
     description: '',
-    time: '',
+    timeHour: '',
+    timeMinute: '',
   });
   const date = useSelector<IState, IDateState>(state => state.date);
   const modal = useSelector<IState, boolean>(state => state.modal);
@@ -51,7 +53,7 @@ const Modal: React.FC = () => {
       createEvent({
         title: formData.title,
         date: date.selected,
-        time: formData.time,
+        time: `${formData.timeHour}:${formData.timeMinute}`,
         description: formData.description,
       }),
     );
@@ -77,8 +79,23 @@ const Modal: React.FC = () => {
           <div>
             <span>Time:</span>
             <Input
-              placeholder="00:00"
-              onChange={e => setFormData({ ...formData, time: e.target.value })}
+              type="number"
+              max={24}
+              min={0}
+              placeholder="00"
+              onChange={e =>
+                setFormData({ ...formData, timeHour: e.target.value })
+              }
+            />
+            :
+            <Input
+              type="number"
+              max={59}
+              min={0}
+              placeholder="00"
+              onChange={e =>
+                setFormData({ ...formData, timeMinute: e.target.value })
+              }
             />
           </div>
           <Input
