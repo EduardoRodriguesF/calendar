@@ -27,6 +27,21 @@ const Modal: React.FC = () => {
 
   const dispatch = useDispatch();
 
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
   const handleModalClose = useCallback(() => {
     dispatch(toggleModal());
   }, [dispatch]);
@@ -51,7 +66,8 @@ const Modal: React.FC = () => {
           <FiX onClick={handleModalClose} size={24} />
         </ModalHeader>
         <span>
-          Date: {date.selected.getDate()}/{date.selected.getMonth() + 1}
+          {months[date.selected.getMonth()]} {date.selected.getDate()},{' '}
+          {date.selected.getFullYear()}
         </span>
         <form>
           <Input
@@ -59,7 +75,7 @@ const Modal: React.FC = () => {
             onChange={e => setFormData({ ...formData, title: e.target.value })}
           />
           <div>
-            <span>Horário:</span>
+            <span>Time:</span>
             <Input
               placeholder="00:00"
               onChange={e => setFormData({ ...formData, time: e.target.value })}
