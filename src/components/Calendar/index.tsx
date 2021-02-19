@@ -12,6 +12,8 @@ import {
   updateYear,
 } from '../../store/modules/date/action';
 import generateCalendar from '../../utils/generateCalendar';
+import { toggleModal } from '../../store/modules/modal/action';
+import Button from '../Button';
 
 interface ICalendarProps {
   initialDate?: Date;
@@ -82,6 +84,10 @@ const Calendar: React.FC<ICalendarProps> = ({
     setCalendarDays(generateCalendar(date));
   }, [date, date.today, dispatch]);
 
+  const handleModalOpen = useCallback(() => {
+    dispatch(toggleModal());
+  }, [dispatch]);
+
   return (
     <Container>
       <div>
@@ -128,6 +134,7 @@ const Calendar: React.FC<ICalendarProps> = ({
           </tr>
         ))}
       </Content>
+      <Button onClick={handleModalOpen}>Create event</Button>
     </Container>
   );
 };

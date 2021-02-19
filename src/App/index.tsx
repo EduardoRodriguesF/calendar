@@ -7,12 +7,16 @@ import Footer from '../components/Footer';
 import { Container } from './styles';
 
 import store from '../store';
+import Modal from '../components/Modal';
+import Events from '../components/Events';
 
 const App: React.FC = () => {
   return (
     <Provider store={store}>
+      <Modal />
       <Container>
         <Calendar />
+        <Events />
         <Footer />
       </Container>
     </Provider>
