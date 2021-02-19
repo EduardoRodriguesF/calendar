@@ -23,6 +23,7 @@ const Input: React.FC<InputProps> = ({ name, placeholder, ...rest }) => {
 
   return (
     <Container
+      isErrored={!!error}
       ref={inputRef}
       type="text"
       name={name}
