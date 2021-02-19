@@ -75,14 +75,16 @@ const Modal: React.FC = () => {
         </span>
         <form>
           <Input
+            name="title"
             placeholder="Title"
             onChange={e => setFormData({ ...formData, title: e.target.value })}
           />
           <div>
             <span>Time:</span>
             <Input
+              name="hour"
               type="number"
-              max={24}
+              max={23}
               min={0}
               placeholder="00"
               onChange={e =>
@@ -91,6 +93,7 @@ const Modal: React.FC = () => {
             />
             :
             <Input
+              name="minutes"
               type="number"
               max={59}
               min={0}
@@ -101,6 +104,7 @@ const Modal: React.FC = () => {
             />
           </div>
           <Input
+            name="description"
             placeholder="Description"
             onChange={e =>
               setFormData({ ...formData, description: e.target.value })
