@@ -106,33 +106,35 @@ const Calendar: React.FC<ICalendarProps> = ({
         />
       </div>
       <Content>
-        <tr>
-          <th>S</th>
-          <th>M</th>
-          <th>T</th>
-          <th>W</th>
-          <th>T</th>
-          <th>F</th>
-          <th>S</th>
-        </tr>
-        {calendarDays.map(row => (
+        <tbody>
           <tr>
-            {row.map(d => (
-              <td
-                data-testid={d.day}
-                className={`${d.other ? 'otherMonth' : ''} ${
-                  d.selected ? 'selected' : ''
-                }
-                  ${d.today ? 'today' : ''}`}
-                onClick={e => {
-                  selectDate(e.target, d.day);
-                }}
-              >
-                {d.day}
-              </td>
-            ))}
+            <th>S</th>
+            <th>M</th>
+            <th>T</th>
+            <th>W</th>
+            <th>T</th>
+            <th>F</th>
+            <th>S</th>
           </tr>
-        ))}
+          {calendarDays.map(row => (
+            <tr>
+              {row.map(d => (
+                <td
+                  data-testid={d.day}
+                  className={`${d.other ? 'otherMonth' : ''} ${
+                    d.selected ? 'selected' : ''
+                  }
+                    ${d.today ? 'today' : ''}`}
+                  onClick={e => {
+                    selectDate(e.target, d.day);
+                  }}
+                >
+                  {d.day}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
       </Content>
       <Button onClick={handleModalOpen}>Create event</Button>
     </Container>
