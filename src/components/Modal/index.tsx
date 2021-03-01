@@ -22,7 +22,6 @@ interface IForm {
 }
 
 const Modal: React.FC = () => {
-  const [error, setError] = useState('');
   const formRef = useRef<FormHandles>(null);
   const [formData, setFormData] = useState<IForm>({
     title: '',
@@ -58,7 +57,6 @@ const Modal: React.FC = () => {
     async (data: IForm) => {
       try {
         formRef.current?.setErrors({});
-        setError('');
 
         const schema = Yup.object().shape({
           title: Yup.string().required('Nome obrigatório'),
