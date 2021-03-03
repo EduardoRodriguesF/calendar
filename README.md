@@ -18,7 +18,9 @@ For now, it just shows you dates by month and allows you to select a date and hi
 - [x] Change current month view
 - [x] Select specific date
 - [x] Keep date selected when changing months and not misselect in another month
-- [ ] Create events in dates
+- [x] Create events in dates
+- [ ] Improve time inputs
+- [ ] Month view displays events in dates before clicking
 ## ⚙️ Technologies
 
 - TypeScript
